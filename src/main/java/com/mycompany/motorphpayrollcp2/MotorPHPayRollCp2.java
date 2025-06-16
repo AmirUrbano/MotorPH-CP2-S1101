@@ -50,7 +50,7 @@ public class MotorPHPayRollCp2 {
                 int month = scanner.nextInt();  
                 scanner.nextLine(); // consume newline
 
-                // ✅ Trigger payroll display
+                //  Trigger payroll display
                 payrollProcessor.processMonthlyPayroll(employeeId, month);
 
             } else {
