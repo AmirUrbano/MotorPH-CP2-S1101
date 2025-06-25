@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.io.*;
 
 public class EmployeeDetails {
+    private static final String CSV_FILE_PATH = "employees.csv";
     private static final Logger logger = Logger.getLogger(EmployeeDetails.class.getName());
     private List<Employee> employeeList;
 
@@ -60,6 +62,54 @@ public class EmployeeDetails {
             initializeEmployees(); // Fallback to hardcoded data
         }
     }
+    // Method to save all employees to CSV file
+public void saveEmployeesToCSV() {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(CSV_FILE_PATH))) {
+        // Write header
+        writer.write("Employee ID,Last Name,First Name,Birthday,Address,Phone Number,SSS Number,PhilHealth,TIN,Pag-IBIG,Status,Position,Supervisor,Basic Salary,Rice Subsidy,Phone Allowance,Clothing Allowance,Gross Semi-Monthly Rate,Hourly Rate");
+        writer.newLine();
+        
+        // Write employee data
+        for (Employee emp : employeeList) {
+            writer.write(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
+                emp.getEmployeeId(), emp.getLastName(), emp.getFirstName(), emp.getBirthday(),
+                emp.getAddress(), emp.getPhoneNumber(), emp.getSssNumber(), emp.getPhilHealth(),
+                emp.getTinNumber(), emp.getPagIbig(), emp.getStatus(), emp.getPosition(),
+                emp.getSupervisor(), emp.getBasicSalary(), emp.getRiceSubsidy(),
+                emp.getPhoneAllowance(), emp.getClothingAllowance(), emp.getGrossSemiMonthlyRate(),
+                emp.getHourlyRate()));
+            writer.newLine();
+        }
+        logger.info("Successfully saved " + employeeList.size() + " employees to CSV");
+    } catch (IOException e) {
+        logger.log(Level.SEVERE, "Error saving employees to CSV file", e);
+        throw new RuntimeException("Failed to save employee data: " + e.getMessage());
+        }
+    }
+    // Method to update an employee record
+    public boolean updateEmployee(Employee updatedEmployee) {
+        for (int i = 0; i < employeeList.size(); i++) {
+            if (employeeList.get(i).getEmployeeId().equals(updatedEmployee.getEmployeeId())) {
+                employeeList.set(i, updatedEmployee);
+                saveEmployeesToCSV(); // Save changes to CSV
+                logger.info("Updated employee: " + updatedEmployee.getEmployeeId());
+                return true;
+            }
+        }
+        return false;
+    }
+    // Method to delete an employee record
+    public boolean deleteEmployee(String employeeId) {
+        for (int i = 0; i < employeeList.size(); i++) {
+            if (employeeList.get(i).getEmployeeId().equals(employeeId)) {
+            Employee removedEmployee = employeeList.remove(i);
+            saveEmployeesToCSV(); // Save changes to CSV
+            logger.info("Deleted employee: " + employeeId);
+            return true;
+            }
+        }
+            return false;
+        }
 
     // Keep your existing hardcoded employees as fallback
     private void initializeEmployees() {
@@ -231,5 +281,12 @@ public class EmployeeDetails {
     // Get total number of employees
     public int getTotalEmployees() {
         return employeeList.size();
+    }
+    // Add new employee to the list
+    public void addEmployee(Employee employee) {
+    if (employee != null) {
+        employeeList.add(employee);
+        saveEmployeesToCSV(); // Save changes to CSV
+        }
     }
 }

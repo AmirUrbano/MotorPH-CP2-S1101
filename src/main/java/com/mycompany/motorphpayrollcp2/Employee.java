@@ -86,6 +86,37 @@ public class Employee {
     public double getWithholdingTax() { return withholdingTax; }
     public void setWithholdingTax(double withholdingTax) { this.withholdingTax = withholdingTax; }
 
+    // Additional getters for GUI components
+    public String getAddress() { return address; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public String getSssNumber() { return sssNumber; }
+    public String getPhilHealth() { return philHealth; }
+    public String getTinNumber() { return tinNumber; }
+    public String getPagIbig() { return pagIbig; }
+    public String getSupervisor() { return supervisor; }
+    public double getGrossSemiMonthlyRate() { return grossSemiMonthlyRate; }
+    
+    // Setter methods for updating employee data
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public void setBirthday(String birthday) { this.birthday = birthday; }
+    public void setAddress(String address) { this.address = address; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setSssNumber(String sssNumber) { this.sssNumber = sssNumber; }
+    public void setPhilHealth(String philHealth) { this.philHealth = philHealth; }
+    public void setTinNumber(String tinNumber) { this.tinNumber = tinNumber; }
+    public void setPagIbig(String pagIbig) { this.pagIbig = pagIbig; }
+    public void setStatus(String status) { this.status = status; }
+    public void setPosition(String position) { this.position = position; }
+    public void setSupervisor(String supervisor) { this.supervisor = supervisor; }
+    public void setBasicSalary(double basicSalary) { this.basicSalary = basicSalary; }
+    public void setRiceSubsidy(double riceSubsidy) { this.riceSubsidy = riceSubsidy; }
+    public void setPhoneAllowance(double phoneAllowance) { this.phoneAllowance = phoneAllowance; }
+    public void setClothingAllowance(double clothingAllowance) { this.clothingAllowance = clothingAllowance; }
+    public void setGrossSemiMonthlyRate(double grossSemiMonthlyRate) { this.grossSemiMonthlyRate = grossSemiMonthlyRate; }
+    public void setHourlyRate(double hourlyRate) { this.hourlyRate = hourlyRate; }
+    
+    
     public void displayInfo() {
         System.out.println("Employee ID: " + employeeId);
         System.out.println("Name: " + firstName + " " + lastName);
